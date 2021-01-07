@@ -1,0 +1,135 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+
+```
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(readr)
+```
+
+```{r}
+resumenames <- read_csv("ResumeNames.csv")
+resumenames
+```
+
+
+```{r}
+nrow(resumenames)
+```
+
+```{r}
+resumenames %>%
+  select(ethnicity) %>%
+  unique()
+```
+
+
+
+```{r}
+resumenames %>% 
+  group_by(ethnicity)  %>%
+  summarize(count=n())
+```
+
+```{r}
+resumenames %>%
+  group_by(call) %>%
+  summarize(count=n())
+```
+
+```{r}
+resumenames %>% 
+  group_by(gender)  %>%
+  summarize(count=n())
+```
+
+```{r}
+#this gives proportion within entire data set
+resumenames %>% 
+  group_by(call, ethnicity) %>%
+  summarize(n=n()) %>%
+  mutate(prop=n/nrow(resumenames))
+```
+
+```{r}
+#this gives proportion within call group by ethnicity
+resumenames %>% 
+  group_by(call, ethnicity) %>%
+  summarize(n=n()) %>%
+  mutate (sum_call = sum(n)) %>%
+  mutate (prop= n/sum_call) 
+```
+
+
+```{r}
+#this gives proportion within ethnicity of call
+resumenames %>% 
+  group_by(ethnicity, call) %>%
+  summarize(n=n()) %>%
+  mutate (sum_call = sum(n)) %>%
+  mutate (prop= n/sum_call) 
+```
+
+```{r}
+#this gives proportion within call group by gender
+#recall dataset has more female than male
+resumenames %>% 
+  group_by(call, gender) %>%
+  summarize(n=n()) %>%
+  mutate (sum_call = sum(n)) %>%
+  mutate (prop= n/sum_call) 
+```
+```{r}
+#this gives proportion within gender of call
+resumenames %>% 
+  group_by(gender, call) %>%
+  summarize(n=n()) %>%
+  mutate (sum_call = sum(n)) %>%
+  mutate (prop= n/sum_call) 
+```
+
+
+```{r}
+
+#this also gives proportion among all resumes
+resumenames %>% 
+  count(call, ethnicity) %>%   #group_by and summarize implicit
+  mutate(prop=prop.table(n))
+```
+
+```{r}
+#get the rows with call==yes
+  resumenames %>%
+  filter(call=='yes') 
+```
+```{r}
+  resumenames %>%
+  group_by(ethnicity, gender) %>%
+  summarize(n=n()) %>%
+  mutate(prop = n/nrow(resumenames))
+```
+
+```{r}
+  resume_call_yes <- 
+    resumenames %>%
+    filter(call=='yes')
+
+  resume_call_yes
+```
+
+
+```{r}
+#rows with call==yes
+  resume_call_yes %>%
+  group_by(ethnicity, gender) %>%
+  summarize(n=n()) %>%
+  mutate(prop = n/nrow(resume_call_yes))
+```

@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#install.packages("mdsr")
+#install.packages("tidyverse")
+library(mdsr)
+library(tidyverse)
+```
+```{r}
+head(CIACountries)
+```
+
+```{r}
+str(CIACountries)
+```
+
+```{r}
+help("CIACountries")
+```
+
+
+
+```{r}
+g <- ggplot(data = CIACountries, aes(y = gdp, x = educ))
+g  + geom_point( aes(color=net_users), size=3)
+```
+
+
+```{r}
+g <- ggplot(data = CIACountries, aes(y = gdp, x = educ))
+g  + geom_text( aes(label=country, color=net_users))
+```
+
+
+```{r}
+g <- ggplot(data = CIACountries, aes(y = gdp, x = educ))
+g  + geom_point( aes(color=net_users, size=roadways))
+```
+
+```{r}
+g <- ggplot(data = CIACountries, aes(y = gdp, x = educ))
+g  + geom_point( aes(color=net_users, size=roadways)) +
+  coord_trans(y = "log10")
+```
+```{r}
+write.csv(CIACountries,"ciacountries.csv")
+```

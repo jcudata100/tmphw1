@@ -1,0 +1,91 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#install.packages("tidyverse")
+#install.packages("mdsr")
+library(mdsr)
+library(tidyverse)
+```
+```{r}
+mpg
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+```{r}
+CIACountries %>%
+  head()
+```
+```{r}
+ggplot(data = CIACountries) + 
+  geom_point(aes(x = educ, y = gdp, color=net_users))
+
+```
+
+```{r}
+help("CIACountries")
+```
+
+```{r}
+ggplot(data = CIACountries) + 
+  geom_point(aes(x = educ, y = gdp, color=net_users)) + 
+  geom_text(aes(x=educ, y=gdp, label=country))
+
+```
+
+```{r}
+ggplot(data = CIACountries) + 
+  geom_point(aes(x = educ, y = gdp, color=net_users)) +
+  geom_line(aes(x=educ, y=gdp))
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy, color = class)) +
+  geom_line(aes(x=displ, y=hwy))
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy, color = class)) +
+  geom_smooth(aes(x=displ, y=hwy), method="lm")
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy, color = class)) +
+  geom_smooth(aes(x=displ, y=hwy, color=class), method="lm")
+```
+
+```{r}
+ggplot(data = CIACountries) + 
+  geom_point(aes(x = educ, y = gdp, color=net_users)) +
+  geom_smooth(aes(x=educ, y=gdp))
+```
+```{r}
+CIACountries2 <- 
+  CIACountries %>%
+  mutate(gdp_log =log(gdp))
+```
+
+```{r}
+CIACountries2
+```
+
+```{r}
+ggplot(data = CIACountries2) + 
+  geom_point(aes(x = educ, y = gdp, color=net_users)) +
+  geom_smooth(aes(x=educ, y=gdp))
+```
+
+```{r}
+ggplot(data = CIACountries2) + 
+  geom_point(aes(x = educ, y = gdp_log, color=net_users)) +
+  geom_smooth(aes(x=educ, y=gdp_log))
+```
+

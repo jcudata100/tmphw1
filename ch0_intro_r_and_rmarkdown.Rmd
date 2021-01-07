@@ -1,0 +1,207 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+
+# Let's experiment with R chunks and R Markdown.
+
+This sentence is displayed in plain font.
+
+*Put one asterisk before and after text to make it italic.*
+
+**Use two asterisks to make text bold.**
+
+This is a hypertext link to [John Carroll](http://jcu.edu).
+Here is another link to [Twitter](http://twitter.com).
+
+You can write R code that acts like a calculator:
+
+```{r}
+
+3 + 5
+
+7 - 200
+
+8 * 234
+
+1011 / 7
+
+2 ** 5
+
+```
+
+Let's look at **operator precedence**.  
+
+*PEMDAS* applies in R as well (parens, exponentiation, multiplication/division, addition/subtraction).
+
+
+```{r}
+100 - 20 / 2
+
+( 100 - 20 ) / 2
+```
+
+
+
+Variables are used to store a value in a named memory location
+```{r}
+lbs_apples <- 5
+price_per_pound <- 1.50
+cost <- lbs_apples * price_per_pound
+
+
+lbs_apples
+price_per_pound
+cost
+```
+
+I bought `r lbs_apples` pounds of apples   
+at $`r price_per_pound` per pound   
+for a total cost of $`r cost`.  
+
+*I got a __great__ deal*.
+
+
+You can update a variable.  Change the price to 1.75 and increase lbs by 2.
+```{r}
+price_per_pound <- 1.75
+lbs_apples  <- lbs_apples + 2 
+cost <- lbs_apples * price_per_pound
+
+lbs_apples
+price_per_pound
+cost
+```
+
+
+
+
+
+# This is a heading level one.
+
+blah blah blah blah.
+
+## This is a heading level two.
+
+more blah blah blah blah.
+
+
+## Unordered list (bulleted)
+
+My favorite fruit:
+
+* apples
+  * honeycrisp
+  * grannysmith
+* pears
+* bananas
+
+
+
+## Ordered list (numbered)
+
+My favorite fruit:
+
+1. oranges
+2. apples
+    1. gala
+    2. honeydew
+    3. granny smith
+3. peaches
+3. pears
+4. bananas
+
+
+A picture of me:
+![my face](fred.png){width=80px}
+
+# Let's explore the cars dataset
+```{r}
+cars
+```
+
+
+
+The `dim` function lists the dataset dimensions (#rows, #cols)
+```{r}
+dim(cars)
+```
+
+The `nrow` function lists the number of rows/observations.
+```{r}
+nrow(cars)
+```
+
+
+The cars data set has `r nrow(cars)` observations on `r ncol(cars)` variables.
+
+
+```{r}
+# List the speed variable for each observation in the cars dataset
+cars$speed
+```
+
+
+```{r}
+min(cars$speed)  
+mean(cars$speed)  #average
+max(cars$speed)
+```
+
+The slowest speed is `r min(cars$speed)`, the fastest is `r max(cars$speed)`, and the average is `r mean(cars$speed)`.
+
+The `'r median' is the middle value.  50% of observations are less than or equal to median, 50% are greater than or equal to.
+```{r}
+median(cars$speed)
+```
+
+6 number summary
+```{r}
+summary(cars$speed)
+```
+
+Let's create a new dataset using information from the class.
+Two variables: typical hours of sleep on weekday, typical hours of sleep on Tuesday night, typical hours of sleep on Saturday night.
+We will upload an excel spreadsheet.
+
+```{r}
+sleep <- read_csv("sleep.csv")
+sleep
+```
+
+Display the observations for the Tuesday variable
+```{r}
+sleep$Tuesday
+```
+
+On average how many hours do students sleep on Tuesday?
+```{r}
+mean(sleep$Tuesday)
+```
+
+How about Saturday?
+```{r}
+mean(sleep$Saturday)
+```
+
+What is the difference between average hours on Saturday vs Tuesday?
+```{r}
+mean(sleep$Saturday) - mean(sleep$Tuesday)
+```
+
+Write a paragraph using embedded R to describe the statistics about the sample data set.
